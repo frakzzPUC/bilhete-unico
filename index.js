@@ -3,26 +3,11 @@ const fs = require("fs");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const oracledb = require("oracledb");
+const { response } = require("express");
 const app = express();
 const PORT = 8080;
 oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
-let conn;
 
-// async function connect() {
-//   try {
-//     conn = await oracledb.getConnection({
-//       user: "hr",
-//       password: "hr",
-//       connectionString: "localhost/orcl",
-//     });
-//     const data = await connn.execute("SELECT * FROM tabela");
-//     console.log(data.rows);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// }
-
-// connect();
 
 //middlewares
 app.use(express.json());
@@ -35,11 +20,42 @@ app.use((req, res, next) => {
 });
 
 app.post("/", (req, res) => {
-  const id = req.body.id;
-  const date = Date.now();
-  const hour = Date.hour();
-  console.log(date);
-  // conn.execute(`INSERT INTO tabela VALUES(5, rafael)`);
+  async function connect() {
+    try {
+     const conn = await oracledb.getConnection({
+        user: "ebd1es822109",
+        password: "Yqejp2",
+        connectionString: "CEATUDB02",
+      });
+      const id = req.body.id;
+      const data = new Date()
+      //Data
+      const dia = String(data.getDate()).padStart(2,'0')
+      const mes = String(data.getMonth()).padStart(2,'0')
+      const ano = String(data.getFullYear()).padStart(2,'0')
+      //Hora
+      const hora = data.getHours()
+      const minutes = data.getMinutes()
+      const seconds = data.getSeconds()
+
+      const dataAtual = `${dia}/${mes}/${ano}`
+      const horaAtual = `${hora}:${minutes}:${seconds}`
+      
+      conn.execute("insert into BILHETE values" + "(:0, :1, :2)",
+      [id, horaAtual, dataAtual],
+      { autoCommit: true })
+      .then((response)=>{
+        console.log(response)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    } catch (err) {
+      console.log(err);
+   }
+  }
+  connect();
+
 });
 
 app.listen(PORT, () => {
