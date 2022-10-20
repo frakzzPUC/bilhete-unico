@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style/index.css" rel="stylesheet">    
+    <title>Document</title>
+    <script>
+        let bilhete
+        const gerar = () =>{
+            const codigo = document.getElementById("bilhete")
+            bilhete = parseInt(Math.random() * 1000000000000)
+            codigo.innerHTML = bilhete
+            console.log(bilhete)
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://localhost:8080", true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify({
+                id:3180831,
+            }));
+        }
+    </script>
+</head>
+<body>
+    <navbar class="navbar">
+        <div class="nav-content">
+            <img style="width:7.5%; margin-right:2.5%;" src="https://png.pngtree.com/png-vector/20191021/ourlarge/pngtree-ticket-icon-cartoon-style-png-image_1837361.jpg">
+                <h1>bilhete urbano</h1>
+            <img src="">
+        </div>
+    </div>
+    <section class="section">
+        <div class="information">
+            o que é
+        </div>
+        <div class="generate">
+            <button onclick="gerar()">CLIQUE E GERE SEU BILHETE</button>
+            <p id="bilhete">Numero do bilhete aqui</p>
+        </div>
+    </div>
+    <footer>
+
+    </footer>
+</body>
+</html>

@@ -1,0 +1,25 @@
+.navbar{
+    text-align: center;
+    margin: 0%;
+}
+.nav-content{
+    display: flex;
+    width: 100%;
+    text-align: center;
+    padding-left: 32%;
+}
+
+.section{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.information{
+    margin-bottom: 5%;
+}
+
+.generate{
+    background-color: aliceblue;
+    padding:7% ;
+}
